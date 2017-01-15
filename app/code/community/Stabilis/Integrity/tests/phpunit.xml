@@ -9,6 +9,9 @@
          processIsolation="false"
          stopOnFailure="true"
          syntaxCheck="false">
+    <php>
+        <const name="MAGE_VERSION" value="v1930" />
+    </php>
     <testsuites>
         <testsuite name="Stabilis_Integrity">
             <directory>./Stabilis</directory>

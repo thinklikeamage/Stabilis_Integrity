@@ -1,5 +1,5 @@
 <?php
 
-require_once '../../../../../../../v1924/app/Mage.php';
+require_once '../../../../../../../' . MAGE_VERSION . '/app/Mage.php';
 
 Mage::app();
