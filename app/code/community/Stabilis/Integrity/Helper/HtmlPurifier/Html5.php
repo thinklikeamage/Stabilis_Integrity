@@ -15,9 +15,20 @@
  * Licensed per the author of the original configuration:
  * 
  * Copyright 2014 Alex Kennberg (https://github.com/kennberg/php-htmlpurifier-html5)
+ * 
+ * Modified for use within Magento.
+ * 
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Stabilis to newer
+ * versions in the future. If you wish to customize Stabilis for your
+ * needs please do so within the local code pool.
+ * 
+ * @category    Stabilis
+ * @package     Stabilis_Integrity
+ * @author      Luke A. Leber (https://www.thinklikeamage.com)
  */
-?>
-<?php
+
 /**
  * Helper class for applying HTML-5 definitions to an HTMLPurifier_Config instance.
  * 
