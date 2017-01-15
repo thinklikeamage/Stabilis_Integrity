@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <sections>
+        <integrity translate="label" module="integrity">
+            <label>Stabilis Integrity</label>
+            <tab>stabilis</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>2000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable translate="label comment">
+                            <label>Enabled</label>
+                            <comment>If disabled, this module will not protect the integrity of your data.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+                        <product_enabled translate="label">
+                            <label>Purify Products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </product_enabled>
+                        <product_attributes translate="label comment">
+                            <label>Purified Attributes</label>
+                            <comment>All selected attributes will be purified prior to saving.</comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integrity/system_config_source_productAttribute</source_model>
+                            <backend_model>integrity/system_config_backend_optionalMultiselect</backend_model>
+                            <sort_order>3000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <product_enabled>1</product_enabled>
+                            </depends>
+                        </product_attributes>
+                        <category_enabled translate="label">
+                            <label>Purify Categories</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                            </depends>
+                        </category_enabled>
+                        <category_attributes translate="label comment">
+                            <label>Purified Attributes</label>
+                            <comment>All selected category attributes will be purified prior to saving.</comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integrity/system_config_source_categoryAttribute</source_model>
+                            <backend_model>integrity/system_config_backend_optionalMultiselect</backend_model>
+                            <sort_order>5000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <enable>1</enable>
+                                <category_enabled>1</category_enabled>
+                            </depends>
+                        </category_attributes>
+                    </fields>
+                </general>
+                
+                <html translate="label">
+                    <label>HTML Settings</label>
+                    <comment>
+                        <![CDATA[
+                            <script type="text/javascript">
+                                document.observe("dom:loaded", function() {
+                                    if($('integrity_general_enable').value == 0) {
+                                         Element.up($('integrity_html')).hide();
+                                    }
+                                });
+                                Event.observe('integrity_general_enable', 'change', function() {
+                                    if(this.value == 1) {
+                                        Element.up($('integrity_html')).show();
+                                    } else {
+                                        Element.up($('integrity_html')).hide();
+                                    }
+                                })
+                            </script>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <doctype translate="label comment tooltip">
+                            <label>Doctype</label>
+                            <comment>This is the doctype to use during the filtering process.</comment>
+                            <tooltip>Unless this is a legacy store, this should be set to HTML5</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>integrity/system_config_source_doctype</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </doctype>
+                        <allowed_elements translate="label comment">
+                            <label>Allowed HTML Elements</label>
+                            <comment>Any element not selected in the above list will be removed from all HTML content.</comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integrity/system_config_source_htmlElement</source_model>
+                            <sort_order>2000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_elements>
+                        <allowed_attributes translate="label comment">
+                            <label>Allowed HTML Attributes</label>
+                            <comment>Any attribute not selected in the above list will be removed from all HTML content.</comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integrity/system_config_source_htmlAttribute</source_model>
+                            <sort_order>3000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_attributes>
+                    </fields>
+                </html>
+                <attributes translate="label">
+                    <label>Attribute Settings</label>
+                    <comment>
+                        <![CDATA[
+                            <script type="text/javascript">
+                                document.observe("dom:loaded", function() {
+                                    if($('integrity_general_enable').value == 0) {
+                                         Element.up($('integrity_attributes')).hide();
+                                    }
+                                });
+                                Event.observe('integrity_general_enable', 'change', function() {
+                                    if(this.value == 1) {
+                                        Element.up($('integrity_attributes')).show();
+                                    } else {
+                                        Element.up($('integrity_attributes')).hide();
+                                    }
+                                })
+                            </script>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <constrain_classes translate="label comment">
+                            <label>Constrain Classes</label>
+                            <comment><![CDATA[Allows you to manually specify a set of allowed classes. If set to no, all classes are allowed.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </constrain_classes>
+                        <allowed_classes translate="label comment">
+                            <label>Allowed Properties</label>
+                            <comment><![CDATA[Only the classes specified above shall be allowed.]]></comment>
+                            <frontend_model>integrity/adminhtml_classAttribute</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>2000</sort_order>
+                            <depends>
+                                <constrain_classes>1</constrain_classes>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_classes>
+                        <allowed_frame_targets translate="label comment">
+                            <label>Allowed Frame Targets</label>
+                            <comment><![CDATA[All except for the selected frame targets will be removed.]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integrity/system_config_source_frameTarget</source_model>
+                            <sort_order>3000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_frame_targets>
+                        <allowed_rel translate="label comment">
+                            <label>Allowed Rel</label>
+                            <comment><![CDATA[All except for the selected rel attribute values will be removed.]]></comment>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integrity/system_config_source_relAttribute</source_model>
+                            <sort_order>4000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_rel>
+                        <default_image_alt translate="label comment">
+                            <label>Default Image Alt</label>
+                            <comment><![CDATA[This is the content of the alt tag of an image if the user had not previously specified an alt attribute. This applies to all images without a valid alt attribute, as opposed to the 'Default Invalid Image Alt' field which only applies to invalid images, and overrides in the case of an invalid image.  If this field is not specified, then a default of the basename of the src tag for the image is used as the alt.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_image_alt>
+                        <default_invalid_image translate="label comment">
+                            <label>Default Invalid Image</label>
+                            <comment><![CDATA[This is the default image an img tag will be pointed to if it does not have a valid src attribute.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_invalid_image>
+                        <default_invalid_image_alt translate="label comment">
+                            <label>Default Invalid Image Alt</label>
+                            <comment><![CDATA[This applies to all images without a valid src attribute.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_invalid_image_alt>
+                        <allow_ids translate="label comment">
+                            <label>Allow IDs</label>
+                            <comment><![CDATA[Allows the ID attribute in HTML. This is disabled by default due to the fact that without proper configuration user input can easily break the validation of a webpage by specifying an ID that is already on the surrounding HTML.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>8000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_ids>
+                        <id_blacklist translate="label comment">
+                            <label>Blacklist IDs</label>
+                            <comment><![CDATA[The IDs specified above will be stripped from all HTML.]]></comment>
+                            <frontend_model>integrity/adminhtml_idAttribute</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>9000</sort_order>
+                            <depends>
+                                <allow_ids>1</allow_ids>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </id_blacklist>
+                    </fields>
+                </attributes>
+                <format translate="label">
+                    <label>Format Settings</label>
+                    <comment>
+                        <![CDATA[
+                            <script type="text/javascript">
+                                document.observe("dom:loaded", function() {
+                                    if($('integrity_general_enable').value == 0) {
+                                         Element.up($('integrity_format')).hide();
+                                    }
+                                });
+                                Event.observe('integrity_general_enable', 'change', function() {
+                                    if(this.value == 1) {
+                                        Element.up($('integrity_format')).show();
+                                    } else {
+                                        Element.up($('integrity_format')).hide();
+                                    }
+                                })
+                            </script>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <auto_paragraph translate="label comment">
+                            <label>Auto Paragraph</label>
+                            <comment><![CDATA[This directive turns on auto-paragraphing, where double newlines are converted in to paragraphs whenever possible. Auto-paragraphing always applies to inline elements or text in the root node, to inline elements or text with double newlines in nodes that allow paragraph tags, and to double newlines in paragraph tags.<br /><strong>p tags must be allowed for this directive to take effect.</strong>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </auto_paragraph>
+                        <display_link_uri translate="label comment">
+                            <label>Auto Paragraph</label>
+                            <comment><![CDATA[This directive turns on the in-text display of URIs in &lt;a&gt; tags, and disables those links.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </display_link_uri>
+                        <linkify translate="label comment">
+                            <label>Linkify</label>
+                            <comment><![CDATA[This directive turns on linkification, auto-linking http, ftp and https URLs. <strong>a tags with the href attribute must be allowed.</strong>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                            
+                        </linkify>
+                        <remove_empty translate="label comment">
+                            <label>Remove Empty Elements</label>
+                            <comment><![CDATA[When enabled, empty elements that contribute no semantic information to the document will be removed.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>       
+                        </remove_empty>
+                        <remove_empty_nbsp translate="label comment">
+                            <label><![CDATA[Remove &amp;nbsp; Elements]]></label>
+                            <comment><![CDATA[When enabled, elements that contain only &amp;nbsp; characters will be treated as empty and removed.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <remove_empty>1</remove_empty>
+                            </depends>
+                        </remove_empty_nbsp>
+                        <remove_empty_spans translate="label comment">
+                            <label>Remove Attributeless Spans</label>
+                            <comment><![CDATA[This directive causes span tags without any attributes to be removed. It will also remove spans that had all attributes removed during processing.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>  
+                        </remove_empty_spans>
+                    </fields>
+                </format>
+                <css translate="label">
+                    <label>CSS Settings</label>
+                    <comment>
+                        <![CDATA[
+                            <script type="text/javascript">
+                                document.observe("dom:loaded", function() {
+                                    if($('integrity_general_enable').value == 0) {
+                                         Element.up($('integrity_css')).hide();
+                                    }
+                                });
+                                Event.observe('integrity_general_enable', 'change', function() {
+                                    if(this.value == 1) {
+                                        Element.up($('integrity_css')).show();
+                                    } else {
+                                        Element.up($('integrity_css')).hide();
+                                    }
+                                })
+                            </script>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allow_duplicates translate="label comment tooltip">
+                            <label>Allow Duplicates</label>
+                            <comment><![CDATA[By default, HTML Purifier removes duplicate CSS properties, like <code>color:red; color:blue</code>. If this is set to yes, duplicate properties are allowed.]]></comment>
+                            <tooltip>It is recommended to leave this setting disabled.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_duplicates>
+                        <allow_important translate="label comment tooltip">
+                            <label>Allow Important</label>
+                            <comment><![CDATA[This parameter determines whether or not !important cascade modifiers should be allowed in user CSS. If set to no, !important will stripped. ]]></comment>
+                            <tooltip>It is recommended to leave this setting disabled.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                            
+                        </allow_important>
+                        <allow_tricky_css translate="label comment tooltip">
+                            <label>Allow "Tricky" CSS</label>
+                            <comment><![CDATA[Tricky CSS properties/values can drastically modify page layout or be used for deceptive practices but do not directly constitute a security risk. For example, display:none; is considered a tricky property that will only be allowed if this directive is set to yes.]]></comment>
+                            <tooltip>It is recommended to disable "Tricky" CSS.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_tricky_css>
+                        <constrain_fonts translate="label comment">
+                            <label>Constrain Fonts</label>
+                            <comment><![CDATA[Allows you to manually specify a set of allowed fonts. If set to no, all fonts are allowed. This directive affects generic names (serif, sans-serif, monospace, cursive, fantasy) as well as specific font families.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>4000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>                            
+                        </constrain_fonts>
+                        <allowed_fonts translate="label comment tooltip">
+                            <label>Allowed Fonts</label>
+                            <comment><![CDATA[Each font added to the list will be whitelisted.  The font names are case insensitive.]]></comment>
+                            <tooltip><![CDATA[Examples:<br />serif<br />sans-serif<br />monospace]]></tooltip>
+                            <frontend_model>integrity/adminhtml_font</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>5000</sort_order>
+                            <depends>
+                                <constrain_fonts>1</constrain_fonts>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_fonts>
+                        <constrain_properties translate="label comment tooltip">
+                            <label>Constrain Properties</label>
+                            <comment><![CDATA[Allows you to manually specify a set of allowed properties. If set to no, all properties are allowed.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </constrain_properties>
+                        <allowed_properties translate="label comment tooltip">
+                            <label>Allowed Properties</label>
+                            <comment><![CDATA[Each property selected from the list will be whitelisted.]]></comment>
+                            <tooltip><![CDATA[Hint: Hold the control key to select multiple values.]]></tooltip>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>integrity/system_config_source_cssProperty</source_model>
+                            <sort_order>7000</sort_order>
+                            <depends>
+                                <constrain_properties>1</constrain_properties>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_properties>
+                        <max_img_length translate="label comment tooltip">
+                            <label>Max Image Size</label>
+                            <comment><![CDATA[This parameter sets the maximum allowed length on img tags, effectively the width and height properties. Only absolute units of measurement (in, pt, pc, mm, cm) and pixels (px) are allowed. This is in place to prevent imagecrash attacks, leave blank at your own risk.]]></comment>
+                            <tooltip><![CDATA[Example: 100px<br />11pt<br />32pc]]></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-css-absolute-unit</validate>
+                            <sort_order>8000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </max_img_length>
+                        <allow_proprietary translate="label comment tooltip">
+                            <label>Allow Proprietary</label>
+                            <comment><![CDATA[Whether or not to allow safe, proprietary CSS values.]]></comment>
+                            <tooltip><![CDATA[Proprietary CSS properties may not display correctly on all browsers.  User experience may suffer if this is abused.]]></tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>9000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_proprietary>
+                    </fields>
+                </css>
+                <uri translate="label">
+                    <label>URI Settings</label>
+                    <comment>
+                        <![CDATA[
+                            <script type="text/javascript">
+                                document.observe("dom:loaded", function() {
+                                    if($('integrity_general_enable').value == 0) {
+                                         Element.up($('integrity_uri')).hide();
+                                    }
+                                });
+                                Event.observe('integrity_general_enable', 'change', function() {
+                                    if(this.value == 1) {
+                                        Element.up($('integrity_uri')).show();
+                                    } else {
+                                        Element.up($('integrity_uri')).hide();
+                                    }
+                                })
+                            </script>
+                        ]]>
+                    </comment>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <allow_iframes translate="label comment tooltip">
+                            <label>Allow IFrames</label>
+                            <comment><![CDATA[Note - when you allow an iframe to be loaded, <strong>you are trusting a third party to display unfiltered content on your store</strong>.<br /><strong><em>Use with caution.</em></strong>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_iframes>
+                        <allowed_iframe_sources translate="label comment tooltip">
+                            <label>Allowed IFrame Sources</label>
+                            <comment><![CDATA[Each source added to the list will be whitelisted.<br />Subdomains are allowed.]]></comment>
+                            <tooltip><![CDATA[Examples:<br />youtube.com<br />player.vimeo.com]]></tooltip>
+                            <frontend_model>integrity/adminhtml_iframeSources</frontend_model>
+                            <backend_model>adminhtml/system_config_backend_serialized</backend_model>
+                            <sort_order>2000</sort_order>
+                            <depends>
+                                <allow_iframes>1</allow_iframes>
+                            </depends>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_iframe_sources>
+                        <disable_external_links translate="label comment">
+                            <label>Disable External Links</label>
+                            <comment><![CDATA[Disables links to external websites. This is a highly effective anti-spam and anti-pagerank-leech measure, but comes at a hefty price: no links or images outside of your domain will be allowed. Non-linkified URIs will still be preserved.]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>3000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </disable_external_links>
+                        <uri_host translate="label comment">
+                            <label>URI Host</label>
+                            <comment><![CDATA[Defines the domain name of the server, so we can determine whether or an absolute URI is from your website or not. Not strictly necessary, as users should be using relative URIs to reference resources on your website. It will, however, let you use absolute URIs to link to subdomains of the domain you post here: i.e. example.com will allow sub.example.com.]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-url</validate>
+                            <sort_order>4000</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <disable_external_links>1</disable_external_links>
+                            </depends>
+                        </uri_host>
+                    </fields>
+                </uri>
+            </groups>
+        </integrity>
+    </sections>
+</config>

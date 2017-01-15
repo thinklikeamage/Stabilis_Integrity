@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <adminhtml_system_config_edit>
+        <reference name="head">
+            <action method="addJs">
+                <script>stabilis/adminhtml/integrity/validations.js</script>
+            </action>
+        </reference>
+    </adminhtml_system_config_edit>
+</layout>
